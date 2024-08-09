@@ -1,13 +1,5 @@
 // bounce.directive.ts
-import {
-  Directive,
-  ElementRef,
-  HostBinding,
-  Input,
-  OnInit,
-} from "@angular/core";
-import { bounceAnimation } from "./bounce"; // Adjust path as necessary
-import { AnimationBuilder } from "@angular/animations";
+import { Directive, HostBinding, Input } from "@angular/core";
 
 @Directive({
   selector: "[appBounce]",

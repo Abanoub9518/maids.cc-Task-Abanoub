@@ -8,6 +8,7 @@ import {
 } from "./user.actions";
 import { User } from "../model/user.model";
 
+// Interface defining the shape of the User state
 export interface UserState {
   users: User[];
   filteredUsers: User[];
@@ -18,6 +19,7 @@ export interface UserState {
   user: { data: User };
 }
 
+// Initial state of the User feature
 export const initialState: UserState = {
   users: [],
   filteredUsers: [],
@@ -36,8 +38,10 @@ export const initialState: UserState = {
   },
 };
 
+// The reducer function handling different actions
 const _userReducer = createReducer(
   initialState,
+  // Handling the success action for loading users
   on(loadUsersSuccess, (state, { paginatedUsers }) => ({
     ...state,
     users: paginatedUsers.data,
@@ -47,31 +51,35 @@ const _userReducer = createReducer(
     currentPage: paginatedUsers.page,
     error: null,
   })),
+  // Handling the failure action for loading users
   on(loadUsersFailure, (state, { error }) => ({
     ...state,
     error,
   })),
+  // Handling the success action for loading a single user
   on(loadUserSuccess, (state, { user }) => ({
     ...state,
     user,
     error: null,
   })),
+  // Handling the failure action for loading a single user
   on(loadUserFailure, (state, { error }) => ({
     ...state,
     error,
   })),
+  // Handling the action for selecting a user by ID
   on(selectUserById, (state, { id }) => {
-    console.log(!id);
-    if (id == "") {
+    // console.log(!id);
+    if (id === "") {
       return {
         ...state,
         filteredUsers: state.users,
-        totalPages: state.total / state.users.length,
+        totalPages: Math.ceil(state.total / state.users.length),
         currentPage: state.currentPage,
       };
     }
 
-    const user = state.users.find((user) => user.id == parseInt(id));
+    const user = state.users.find((user) => user.id === parseInt(id)); // Find the user by ID
     return {
       ...state,
       filteredUsers: user ? [user] : [],
@@ -81,6 +89,7 @@ const _userReducer = createReducer(
   })
 );
 
+// Function to export the reducer function
 export function userReducer(state: UserState | undefined, action: Action) {
   return _userReducer(state, action);
 }

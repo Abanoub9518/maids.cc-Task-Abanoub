@@ -13,7 +13,7 @@ export class UserService {
   private paginatedUsersCache = new Map<number, PaginatedUsers>();
 
   constructor(private http: HttpClient) {}
-
+  // Get users using pagination & cahching.
   getUsers(page: number): Observable<PaginatedUsers> {
     const cachedUsers = this.paginatedUsersCache.get(page);
     if (cachedUsers) {
@@ -24,6 +24,8 @@ export class UserService {
       .get<PaginatedUsers>(`${this.apiUrl}?page=${page}`)
       .pipe(tap((response) => this.paginatedUsersCache.set(page, response)));
   }
+
+  // Get user by ID using cahching.
 
   getUser(id: number): Observable<User> {
     const cachedUser = this.userCache.get(id);

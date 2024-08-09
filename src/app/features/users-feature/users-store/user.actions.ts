@@ -1,12 +1,13 @@
 import { createAction, props } from "@ngrx/store";
 import { PaginatedUsers } from "../model/user.model";
 
-// Load Users
+// Load a list of users
 export const loadUsers = createAction(
   "[User] Load Users",
   props<{ page: number }>()
 );
 
+// Success and failure actions for loading users
 export const loadUsersSuccess = createAction(
   "[User] Load Users Success",
   props<{ paginatedUsers: PaginatedUsers }>()
@@ -17,12 +18,13 @@ export const loadUsersFailure = createAction(
   props<{ error: any }>()
 );
 
-// Load Single User
+// Load a single user
 export const loadUser = createAction(
   "[User] Load User",
   props<{ id: number }>()
 );
 
+// Success and failure actions for loading a single user
 export const loadUserSuccess = createAction(
   "[User] Load User Success",
   props<{ user: any }>()
@@ -33,7 +35,7 @@ export const loadUserFailure = createAction(
   props<{ error: any }>()
 );
 
-// Search Users
+// Action to select a user by ID
 export const selectUserById = createAction(
   "[User] Select User By ID",
   props<{ id: string }>()
