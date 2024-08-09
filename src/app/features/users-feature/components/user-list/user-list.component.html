@@ -1,0 +1,82 @@
+<div class="flex flex-col justify-center my-20" appBounce>
+  <div *ngIf="(users$ | async)?.length === 0">
+    <div class="flex flex-wrap justify-center gap-4 mx-2">
+      <div
+        class="w-full max-w-sm bg-white border mx-auto border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+      >
+        <div class="flex flex-col items-center pb-10 px-4 pt-4">
+          <img
+            class="w-24 h-24 mb-3 rounded-full shadow-lg"
+            src="assets/images/not-found.png"
+            alt="no users found"
+          />
+          <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+            No Users Found
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="users$ | async as users" class="h-75">
+    <div class="flex flex-wrap justify-center gap-4 mx-2">
+      <div
+        *ngFor="let user of users"
+        class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 self-center"
+      >
+        <app-card [user]="user"></app-card>
+      </div>
+    </div>
+  </div>
+  <!-- Pagination controls -->
+  <div class="flex sm:flex-row justify-center items-center mt-2">
+    <button
+      (click)="onPageChange(currentPage - 1)"
+      [disabled]="currentPage <= 1"
+      class="px-4 py-2 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+    >
+      <svg
+        class="w-6 h-6 text-gray-800 dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m15 19-7-7 7-7"
+        />
+      </svg>
+    </button>
+    <span class="text-center sm:mx-4">
+      Page {{ currentPage }} of {{ totalPages }}
+    </span>
+    <button
+      (click)="onPageChange(currentPage + 1)"
+      [disabled]="currentPage >= totalPages"
+      class="px-4 py-2 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+    >
+      <svg
+        class="w-6 h-6 text-gray-800 dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m9 5 7 7-7 7"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

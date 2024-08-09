@@ -1,0 +1,33 @@
+<div
+  class="h-[85vh] flex flex-col justify-center w-full items-center"
+  appBounce
+>
+  <div
+    *ngIf="user$ | async as user"
+    class="w-1/2 justify-center align-center bg-white border border-gray-300 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 p-6"
+  >
+    <div class="flex flex-col items-center">
+      <img
+        class="w-32 h-32 mb-4 rounded-full shadow-lg"
+        [src]="user.data.avatar"
+        [alt]="user.data.first_name + ' ' + user.data.last_name"
+      />
+      <!-- <h5 class="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
+        {{ user.first_name }} {{ user.last_name }}
+      </h5> -->
+      <div class="text-gray-700 dark:text-gray-400 mb-4">
+        <p><strong>First Name:</strong> {{ user.data.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ user.data.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.data.email }}</p>
+      </div>
+      <div class="flex flex-col sm:flex-row mt-6 w-full">
+        <button
+          (click)="goBack()"
+          class="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2 mb-2 sm:mb-0 sm:mr-2 text-sm font-medium text-center text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
